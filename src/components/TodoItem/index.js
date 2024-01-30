@@ -1,20 +1,50 @@
-// Write your code here
 import './index.css'
 
 const TodoItem = props => {
-  const {todoDetails, deleteTodo} = props
+  const {
+    todoDetails,
+    handleDelete,
+    handleEdit,
+    toggleChecked,
+    isChecked,
+    editItem,
+  } = props
   const {id, title} = todoDetails
 
   const onDeleteTodo = () => {
-    deleteTodo(id)
+    handleDelete(id)
+  }
+  const handleToggle = () => {
+    toggleChecked(id)
+  }
+
+  const onEditTodo = () => {
+    handleEdit(id)
   }
 
   return (
     <li className="todo-item">
-      <p className="title">{title}</p>
-      <button type="button" className="delete-btn" onClick={onDeleteTodo}>
-        Delete
-      </button>
+      <label>
+        <input type="checkbox" checked={isChecked} onChange={handleToggle} />
+
+        <p className="title">{title}</p>
+
+        <div className="todo-icon">
+          {editItem ? (
+            <button type="button" onClick={onEditTodo}>
+              Save
+            </button>
+          ) : (
+            <button type="button" onClick={onEditTodo}>
+              Edit
+            </button>
+          )}
+
+          <button type="button" onClick={onDeleteTodo}>
+            Delete
+          </button>
+        </div>
+      </label>
     </li>
   )
 }
